@@ -1,0 +1,20 @@
+NodeJs modules
+
+Module is functionality organized in a single or multiple files. It can be reused several times.
+Module has its own context.
+
+
+Three types of modules:
+	* Core modules - basic functionalities of Node js:
+		* http
+		* url
+		* path
+		* fs
+		* ...
+	* Local modules - modules that are created localy. Can be in a separate directory, but has to be exposed through JS file or index.js file. Module can be a string, function, object.
+
+	module.exports = <variable> - exports the string, function, object as a module from the current file
+	exports = <variable> - the same
+	module.exports.<name_of_variable> = <variable_value> - exports the object with <name_of_variable> variable with value <variable_value>
+
+	* Third party modules - in node_modules

@@ -16,4 +16,4 @@ const websitesData = [
     },
 ];
 
-export default websitesData;
+module.exports = websitesData;
