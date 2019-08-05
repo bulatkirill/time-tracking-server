@@ -1,0 +1,29 @@
+A promise is an object that may produce a single value some time in the future.
+
+Three states:
+    *   fulfilled - after call of "resolve" method inside promise object
+    *   rejected - after call of "reject" method inside promise object
+    *   pending - not yet fulfilled or rejected
+
+Promise cannot be resolved or rejected twice. once it's resolved or rejected -> it's immutable.
+
+
+Promise constructor:
+    *   takes a function with two parameters: resolve and reject function
+    *   new Promise((resolve, reject) => {
+            //...
+            resolve(value) // call of resolve function, which is provided in then() clause
+            reject(value) // call of reject function, which is provided in catch() clause
+        })
+
+Promise characteristics:
+    *   it is an object that supplies .then() method
+    *   once object is resolved or rejected - it is settled. Once it is settled it has to have value and it cannot be changed
+    *   .then() method
+        *   has two optional arguments: "onFulfilled" function and "onRejected" function
+        *   "onFulfilled" takes as an argument the value passed to "resolve" function
+        *   "onRejected" takes as an argument the value passed to "reject" function
+        *   it is possible to chain then functions
+        *   then function return a promise
+    *   instead of writing "onRejected" function in "then" function we can write "catch"
+        *   difference is not only in writing, but in handling exception, that could occur in "onFulfilled" function
