@@ -34,3 +34,41 @@ wait(200)
     .then(g => console.log(`g: ${ g }`))
     .catch(h => console.log(h)) // [Error: bar]
 ;
+
+
+router.get('/test', async (req, res) => {
+    console.log('req for /test accepted');
+    const value = promiseFunc(5).then((newValue) => {
+        console.log('Im in first "onFulfilled" function.');
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(newValue + 5);
+            }, 2000);
+            if (10 !== newValue) {
+                reject(newValue - 4);
+            }
+        }).then((newValue2) => {
+            console.log('Im in second "onFulfilled" function.');
+            console.log(newValue2);
+            res.status(200).send({
+                success: true,
+                message: 'websites data retrieved successfully',
+            });
+        })
+    }).catch((errorValue) => {
+        console.log(errorValue);
+    });
+});
+
+
+function promiseFunc(value) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(value + 5);
+        }, 2000);
+        if (5 !== value) {
+            reject(value - 4);
+        }
+    })
+}
+

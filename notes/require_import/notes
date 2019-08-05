@@ -1,0 +1,13 @@
+const var = require('/path');
+    *   is used in CommonJs
+    *   exporting modules then done in this way:
+        *   module.exports
+        *   exports.foo
+
+import var from 'module_name'
+    *   is used in ES6
+    *   exporting modules then done in this way:
+        *   export
+
+Babel that compiles ES6 code to CommonJs change "import" -> to "require"
+

@@ -1,6 +1,11 @@
-import express from 'express';
-import bodyParser from "body-parser";
-import routes from './routes';
+const bodyParser = require('body-parser');
+const routes = require('./routes');
+const express = require('express');
+const faker = require("faker");
+const times = require("lodash.times");
+const random = require("lodash.random");
+
+const db = require('./db');
 
 const app = express();
 
@@ -18,9 +23,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 // require(<id>) - importing of module, JSON, and local files
 app.use(routes);
 
-
 const PORT = 5000;
 
-app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`)
+// loading/creating database schema defined in db module
+db.sequelize.sync().then(() => {
+    // populate author table with dummy data
+    db.TimeEntry.bulkCreate(
+        times(10, () => ({
+            host: faker.name.firstName(0)
+        }))
+    );
+    app.listen(PORT, () =>
+        console.log(`App listening on port ${PORT}!`));
+
 });
