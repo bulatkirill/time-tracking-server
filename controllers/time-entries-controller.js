@@ -24,4 +24,14 @@ router.get('/', async (req, res) => {
     });
 });
 
+router.post('/', async (req, res) => {
+    console.log('POST req for /timeEntry accepted');
+    const timeEntries = await timeEntryRepository.getTimeEntries();
+    res.status(200).send({
+        success: true,
+        message: 'timeEntries data retrieved successfully',
+        timeEntries: timeEntries
+    });
+});
+
 module.exports = router;

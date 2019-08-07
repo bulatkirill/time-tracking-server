@@ -27,3 +27,10 @@ Promise characteristics:
         *   then function return a promise
     *   instead of writing "onRejected" function in "then" function we can write "catch"
         *   difference is not only in writing, but in handling exception, that could occur in "onFulfilled" function
+
+
+Await:
+    *   is a syntax sugar for calling Promise based functions
+    *   await makes result of Promise based function to be retrieved (get the value passed to "resolve" function as argument)
+
+https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
