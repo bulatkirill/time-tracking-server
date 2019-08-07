@@ -30,6 +30,7 @@ db.sequelize.sync().then(() => {
     // populate author table with dummy data
     db.TimeEntry.bulkCreate(
         times(10, () => ({
+            tabId: 1,
             host: faker.name.firstName(0)
         }))
     );

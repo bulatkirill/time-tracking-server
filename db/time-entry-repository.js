@@ -8,6 +8,14 @@ const timeEntryRepository = {
     },
     addTimeEntry: async (timeEntry) => {
         return await db.TimeEntry.create(timeEntry);
+    },
+    updateTimeEntry: async (timeEntry) => {
+        return await db.TimeEntry.update(timeEntry, {
+            where: {
+                id: timeEntry.id
+            },
+            returning: true
+        });
     }
 };
 

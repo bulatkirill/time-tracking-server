@@ -1,18 +1,18 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('time_entry', {
-            tab_id: {
+            tabId: {
                 type: DataTypes.INTEGER,
                 unique: false
             },
-            date_open: {
+            dateOpen: {
                 type: DataTypes.DATE,
                 unique: false
             },
-            date_closed: {
+            dateClosed: {
                 type: DataTypes.DATE,
                 unique: false
             },
-            full_url: {
+            fullUrl: {
                 type: DataTypes.STRING,
                 unique: false
             },

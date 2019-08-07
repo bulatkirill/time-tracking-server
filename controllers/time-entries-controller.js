@@ -1,12 +1,12 @@
 import express from 'express';
-import timeEntryRepository from '../db/time-entry-repository'
 
+const timeEntryService = require('../service/time-entry-service');
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
     let id = req.params.id;
     console.log(`req for /timeEntry/${id} accepted`);
-    const timeEntry = await timeEntryRepository.getTimeEntryById(id);
+    const timeEntry = timeEntryService.getById(id);
     res.set(200).send({
         success: true,
         message: 'time entry data retrieved successfully',
@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
     console.log('req for /timeEntry accepted');
-    const timeEntries = await timeEntryRepository.getTimeEntries();
+    const timeEntries = await timeEntryService.getAll();
     res.status(200).send({
         success: true,
         message: 'timeEntries data retrieved successfully',
@@ -26,11 +26,37 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     console.log('POST req for /timeEntry accepted');
-    const timeEntries = await timeEntryRepository.getTimeEntries();
+    // think about using JSON.parse
+    const timeEntry = {
+        tabId: req.body.id,
+        dateOpen: req.body.dateOpen,
+        dateClosed: req.body.dateClosed,
+        fullUrl: req.body.fullUrl
+    };
+    const timeEntryAdded = timeEntryService.add(timeEntry);
     res.status(200).send({
         success: true,
         message: 'timeEntries data retrieved successfully',
-        timeEntries: timeEntries
+        timeEntry: timeEntryAdded
+    });
+});
+
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(`PUT req for /timeEntry/${id} accepted`);
+    // think about using JSON.parse
+    const timeEntry = {
+        id: id,
+        tabId: req.body.id,
+        dateOpen: req.body.dateOpen,
+        dateClosed: req.body.dateClosed,
+        fullUrl: req.body.fullUrl
+    };
+    const timeEntryUpdated = timeEntryService.update(timeEntry);
+    res.status(200).send({
+        success: true,
+        message: 'timeEntries data retrieved successfully',
+        timeEntry: timeEntryUpdated
     });
 });
 
