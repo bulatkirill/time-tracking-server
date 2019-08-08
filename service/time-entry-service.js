@@ -11,23 +11,23 @@ const parseUrl = (url) => {
 };
 
 const timeEntryService = {
-    add: (timeEntry) => {
+    add: async (timeEntry) => {
         const fullUrl = timeEntry.fullUrl;
         const host = parseUrl(fullUrl)[4];
         timeEntry.host = host;
-        timeEntryRepository.addTimeEntry(timeEntry);
+        return await timeEntryRepository.addTimeEntry(timeEntry);
     },
-    update: (timeEntry) => {
+    update: async (timeEntry) => {
         if (timeEntry === null || !timeEntry.id) {
             throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
         }
-        return timeEntryRepository.updateTimeEntry(timeEntry);
+        return await timeEntryRepository.updateTimeEntry(timeEntry);
     },
     getAll: async () => {
         return await timeEntryRepository.getTimeEntries();
     },
-    getById: (id) => {
-        return timeEntryRepository.getTimeEntryById(id);
+    getById: async (id) => {
+        return await timeEntryRepository.getTimeEntryById(id);
     }
 };
 

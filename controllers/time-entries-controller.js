@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.get('/:id', async (req, res) => {
     let id = req.params.id;
-    console.log(`req for /timeEntry/${id} accepted`);
-    const timeEntry = timeEntryService.getById(id);
+    const timeEntry = await timeEntryService.getById(id);
     res.set(200).send({
         success: true,
         message: 'time entry data retrieved successfully',
@@ -15,7 +14,6 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    console.log('req for /timeEntry accepted');
     const timeEntries = await timeEntryService.getAll();
     res.status(200).send({
         success: true,
@@ -25,37 +23,20 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    console.log('POST req for /timeEntry accepted');
-    // think about using JSON.parse
-    const timeEntry = {
-        tabId: req.body.id,
-        dateOpen: req.body.dateOpen,
-        dateClosed: req.body.dateClosed,
-        fullUrl: req.body.fullUrl
-    };
-    const timeEntryAdded = timeEntryService.add(timeEntry);
+    const timeEntryAdded = await timeEntryService.add(req.body);
     res.status(200).send({
         success: true,
-        message: 'timeEntries data retrieved successfully',
+        message: 'Time Entry added successfully',
         timeEntry: timeEntryAdded
     });
 });
 
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
-    console.log(`PUT req for /timeEntry/${id} accepted`);
-    // think about using JSON.parse
-    const timeEntry = {
-        id: id,
-        tabId: req.body.id,
-        dateOpen: req.body.dateOpen,
-        dateClosed: req.body.dateClosed,
-        fullUrl: req.body.fullUrl
-    };
-    const timeEntryUpdated = timeEntryService.update(timeEntry);
+    const timeEntryUpdated = await timeEntryService.update(req.body);
     res.status(200).send({
         success: true,
-        message: 'timeEntries data retrieved successfully',
+        message: `Time entry with id = ${id} updated successfully`,
         timeEntry: timeEntryUpdated
     });
 });

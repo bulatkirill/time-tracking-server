@@ -26,7 +26,9 @@ app.use(routes);
 const PORT = 5000;
 
 // loading/creating database schema defined in db module
-db.sequelize.sync().then(() => {
+db.sequelize.sync({
+    force: true //drop table if exists before the start
+}).then(() => {
     // populate author table with dummy data
     db.TimeEntry.bulkCreate(
         times(10, () => ({
