@@ -31,9 +31,14 @@ router.post('/', async (req, res) => {
     });
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res, next) => {
     const id = req.params.id;
-    const timeEntryUpdated = await timeEntryService.update(req.body);
+    const timeEntryUpdated = await timeEntryService.update(req.body, id).catch((error) => {
+        console.log(error);
+        // throw error;
+        // res.sendStatus(500);
+        // next(error);
+    });
     res.status(200).send({
         success: true,
         message: `Time entry with id = ${id} updated successfully`,

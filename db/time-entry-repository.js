@@ -4,15 +4,15 @@ const timeEntryRepository = {
         return await db.TimeEntry.findAll();
     },
     getTimeEntryById: async (id) => {
-        return await db.TimeEntry.findById(id);
+        return await db.TimeEntry.findByPk(id);
     },
     addTimeEntry: async (timeEntry) => {
         return await db.TimeEntry.create(timeEntry);
     },
-    updateTimeEntry: async (timeEntry) => {
+    updateTimeEntry: async (timeEntry, id) => {
         return await db.TimeEntry.update(timeEntry, {
             where: {
-                id: timeEntry.id
+                id: id
             },
             returning: true
         });

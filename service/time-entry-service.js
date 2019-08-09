@@ -3,11 +3,7 @@ const timeEntryRepository = require('../db/time-entry-repository');
 const parseUrl = (url) => {
     // algorithm took from https://tools.ietf.org/html/rfc3986#appendix-B
     const pattern = '^(([^:\\/?#]+):)?(\\/\\/([^\\/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?';
-    const result = url.match(pattern);
-    result.forEach((element) => {
-        console.log(`Index of element ${element}`);
-    });
-    return result; //returns host
+    return url.match(pattern);
 };
 
 const timeEntryService = {
@@ -17,11 +13,13 @@ const timeEntryService = {
         timeEntry.host = host;
         return await timeEntryRepository.addTimeEntry(timeEntry);
     },
-    update: async (timeEntry) => {
-        if (timeEntry === null || !timeEntry.id) {
+    update: async (timeEntry, id) => {
+        //TODO
+        throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
+        if (timeEntry === null || id === null) {
             throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
         }
-        return await timeEntryRepository.updateTimeEntry(timeEntry);
+        return await timeEntryRepository.updateTimeEntry(timeEntry, id);
     },
     getAll: async () => {
         return await timeEntryRepository.getTimeEntries();

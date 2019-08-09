@@ -4,7 +4,7 @@ const express = require('express');
 const faker = require("faker");
 const times = require("lodash.times");
 const random = require("lodash.random");
-
+const log = require('./middleware/log/LoggingMiddleware');
 const db = require('./db');
 
 const app = express();
@@ -20,8 +20,12 @@ app.use(bodyParser.json());
 // parse body if it is url-encoded
 app.use(bodyParser.urlencoded({extended: true}));
 
+// basic logging for all requests
+app.use(log);
+
 // require(<id>) - importing of module, JSON, and local files
 app.use(routes);
+
 
 const PORT = 5000;
 
