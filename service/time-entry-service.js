@@ -18,6 +18,7 @@ const timeEntryService = {
         if (timeEntry === null || id === null) {
             throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
         }
+        // TODO this is not working with sqlite, because it is *probably* not implemented by squelize
         let [cntUpdated, updatedRows] = await timeEntryRepository.updateTimeEntry(timeEntry, id);
         logger.log(`Number of update time entries for id = ${id} = ${cntUpdated}`);
         return updatedRows[0];
