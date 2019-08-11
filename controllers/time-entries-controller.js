@@ -1,49 +1,30 @@
 import express from 'express';
 
+const expressService = require('../service/express-service');
 const timeEntryService = require('../service/time-entry-service');
+const httpService = require('../service/http-service');
 const router = express.Router();
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', expressService.asyncWrapper(async (req, res) => {
     let id = req.params.id;
     const timeEntry = await timeEntryService.getById(id);
-    res.set(200).send({
-        success: true,
-        message: 'time entry data retrieved successfully',
-        timeEntry: timeEntry
-    });
-});
+    httpService.sendHttpOk(res, 'timeEntry', timeEntry);
+}));
 
-router.get('/', async (req, res) => {
+router.get('/', expressService.asyncWrapper(async (req, res) => {
     const timeEntries = await timeEntryService.getAll();
-    res.status(200).send({
-        success: true,
-        message: 'timeEntries data retrieved successfully',
-        timeEntries: timeEntries
-    });
-});
+    httpService.sendHttpOk(res, 'timeEntries', timeEntries);
+}));
 
-router.post('/', async (req, res) => {
+router.post('/', expressService.asyncWrapper(async (req, res) => {
     const timeEntryAdded = await timeEntryService.add(req.body);
-    res.status(200).send({
-        success: true,
-        message: 'Time Entry added successfully',
-        timeEntry: timeEntryAdded
-    });
-});
+    httpService.sendHttpOk(res, 'timeEntry', timeEntryAdded);
+}));
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', expressService.asyncWrapper(async (req, res) => {
     const id = req.params.id;
-    const timeEntryUpdated = await timeEntryService.update(req.body, id).catch((error) => {
-        console.log(error);
-        // throw error;
-        // res.sendStatus(500);
-        // next(error);
-    });
-    res.status(200).send({
-        success: true,
-        message: `Time entry with id = ${id} updated successfully`,
-        timeEntry: timeEntryUpdated
-    });
-});
+    const timeEntryUpdated = await timeEntryService.update(req.body, id);
+    httpService.sendHttpOk(res, 'timeEntry', timeEntryUpdated);
+}));
 
 module.exports = router;

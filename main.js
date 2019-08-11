@@ -3,9 +3,9 @@ const routes = require('./routes');
 const express = require('express');
 const faker = require("faker");
 const times = require("lodash.times");
-const random = require("lodash.random");
 const log = require('./middleware/log/LoggingMiddleware');
 const db = require('./db');
+const errorHandlerMiddleware = require('./middleware/error-handler/error-handler-middleware');
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(log);
 // require(<id>) - importing of module, JSON, and local files
 app.use(routes);
 
-
+app.use(errorHandlerMiddleware.errorHandlerMiddleware);
 const PORT = 5000;
 
 // loading/creating database schema defined in db module

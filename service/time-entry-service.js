@@ -1,4 +1,5 @@
 const timeEntryRepository = require('../db/time-entry-repository');
+const logger = require('../service/logger-service');
 
 const parseUrl = (url) => {
     // algorithm took from https://tools.ietf.org/html/rfc3986#appendix-B
@@ -14,12 +15,12 @@ const timeEntryService = {
         return await timeEntryRepository.addTimeEntry(timeEntry);
     },
     update: async (timeEntry, id) => {
-        //TODO
-        throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
         if (timeEntry === null || id === null) {
             throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
         }
-        return await timeEntryRepository.updateTimeEntry(timeEntry, id);
+        let [cntUpdated, updatedRows] = await timeEntryRepository.updateTimeEntry(timeEntry, id);
+        logger.log(`Number of update time entries for id = ${id} = ${cntUpdated}`);
+        return updatedRows[0];
     },
     getAll: async () => {
         return await timeEntryRepository.getTimeEntries();

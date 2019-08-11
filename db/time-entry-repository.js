@@ -14,6 +14,7 @@ const timeEntryRepository = {
             where: {
                 id: id
             },
+            // returning true tells to return the updated object
             returning: true
         });
     }
