@@ -1,13 +1,18 @@
+const env = process.env.NODE_ENV || 'development';
+const sequelizeConfig = require(__dirname + '/config/config.json')[env];
 import Sequelize from 'sequelize';
 
-const sequelize = new Sequelize('postgres://time_tracker:time_tracker@localhost:5432/time_tracker', {
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
-});
+sequelizeConfig.pool = {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+};
+
+const sequelize = new Sequelize(
+    // 'postgres://time_tracker:time_tracker@localhost:5432/time_tracker',
+    sequelizeConfig
+);
 
 // Create an export object with entry point to all tables
 const models = {
