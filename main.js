@@ -6,7 +6,7 @@ const times = require("lodash.times");
 const log = require('./middleware/log/LoggingMiddleware');
 const db = require('./db');
 const errorHandlerMiddleware = require('./middleware/error-handler/error-handler-middleware');
-
+const logger = require('./service/logger-service');
 const app = express();
 
 // specifying static content of the application
@@ -41,6 +41,6 @@ db.sequelize.sync({
         }))
     );
     app.listen(PORT, () =>
-        console.log(`App listening on port ${PORT}!`));
+        logger.log(`App listening on port ${PORT}!`));
 
 });
