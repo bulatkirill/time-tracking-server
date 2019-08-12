@@ -16,7 +16,8 @@ const sequelize = new Sequelize(
 
 // Create an export object with entry point to all tables
 const models = {
-    TimeEntry: sequelize.import('./time-entry')
+    TimeEntry: sequelize.import('./time-entry'),
+    Client: sequelize.import('./client')
 };
 
 
