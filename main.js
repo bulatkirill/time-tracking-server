@@ -40,6 +40,14 @@ db.sequelize.sync({
             host: faker.name.firstName(0)
         }))
     );
+    db.Client.bulkCreate(
+        times(10, () => ({
+            login: faker.internet.email(),
+            email: faker.internet.email(),
+            name: faker.name.findName(0),
+            password: 'password'
+        }))
+    );
     app.listen(PORT, () =>
         logger.log(`App listening on port ${PORT}!`));
 

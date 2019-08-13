@@ -10,8 +10,8 @@ sequelizeConfig.pool = {
 };
 
 const sequelize = new Sequelize(
-    // 'postgres://time_tracker:time_tracker@localhost:5432/time_tracker',
-    sequelizeConfig
+    'postgres://time_tracker:time_tracker@localhost:5432/time_tracker',
+    // sequelizeConfig
 );
 
 // Create an export object with entry point to all tables

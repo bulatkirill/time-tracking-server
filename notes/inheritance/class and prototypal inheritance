@@ -1,0 +1,8 @@
+What’s the Difference Between Class & Prototypal Inheritance?
+
+    *   Classes in JS are not the same as in languages like Java
+
+    *   Classes are defined with the help of *constructor function* or from ES6 with "class" word
+        *   class Foo {} // is equal to function Foo {}
+        *   typeof Foo // 'function'
+

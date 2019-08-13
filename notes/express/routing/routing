@@ -1,0 +1,41 @@
+Route methods:
+
+    *   app.get()
+    *   app.post()
+    *   and so on, full collection is on https://expressjs.com/en/4x/api.html#app.METHOD
+
+Route paths:
+
+    *   goes as first parameter to methods
+    *   support regexp
+
+Route parameters:
+
+    *   ":nameOfParameter" - syntax used for parameters in path
+    *   can be accessed within req.params object
+
+
+Route handlers:
+
+    *   second argument of the app.get() function
+    *   can be one ore several handlers
+
+        *   if there are several handlers, all handlers until the last one have to call "next()" function to delegate execution
+
+    *   (req,res,next) => {} - signature of the handler function
+
+Response methods:
+
+    *   there are several methods to send response to the client
+        *   res.end()
+        *   res.send()
+        *   and so on
+
+
+
+express.Router
+
+    *   instances of this class allows to create complete and routing system, that can be exported as a module
+    *   usually it is used to create a module, which can be exported several times
+    *   then it has to be loaded in application as a middleware
+
