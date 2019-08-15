@@ -28,4 +28,10 @@ router.patch('/:id', expressService.asyncWrapper(async (req, res) => {
     httpService.sendHttpOk(res, 'client', clientUpdated);
 }));
 
+router.post('/:clientId/timeEntry', expressService.asyncWrapper(async (req, res) => {
+    const clientId = req.params.clientId;
+    const timeEntryAdded = await clientService.addTimeEntry(req.body, clientId);
+    httpService.sendHttpOk(res, 'timeEntry', timeEntryAdded);
+}));
+
 export default router;

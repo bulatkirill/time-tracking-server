@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('time_entry', {
+    return sequelize.define('timeEntry', {
             tabId: {
                 type: DataTypes.INTEGER,
                 unique: false

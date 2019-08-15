@@ -1,0 +1,9 @@
+Before ES6:
+
+    *   default value of an parameter is "undefined"
+    *   if we don't pass anything - it will be undefined
+
+After ES6:
+
+    *   logic is the same
+    *   We can specify default value of an parameter with the help of (param1 = value1, param2 = value2, ...)
