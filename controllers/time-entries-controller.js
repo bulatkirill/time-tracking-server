@@ -21,9 +21,9 @@ router.post('/', expressService.asyncWrapper(async (req, res) => {
     httpService.sendHttpOk(res, 'timeEntry', timeEntryAdded);
 }));
 
-router.put('/:id', expressService.asyncWrapper(async (req, res) => {
+router.patch('/:id', expressService.asyncWrapper(async (req, res) => {
     const id = req.params.id;
-    const timeEntryUpdated = await timeEntryService.update(req.body, id);
+    const timeEntryUpdated = await timeEntryService.partialUpdate(req.body, id);
     httpService.sendHttpOk(res, 'timeEntry', timeEntryUpdated);
 }));
 

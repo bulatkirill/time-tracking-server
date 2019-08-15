@@ -22,7 +22,7 @@ router.post('/', expressService.asyncWrapper(async (req, res) => {
     httpService.sendHttpOk(res, 'client', clientAdded);
 }));
 
-router.put('/:id', expressService.asyncWrapper(async (req, res) => {
+router.patch('/:id', expressService.asyncWrapper(async (req, res) => {
     const id = req.params.id;
     const clientUpdated = await clientService.partialUpdate(req.body, id);
     httpService.sendHttpOk(res, 'client', clientUpdated);

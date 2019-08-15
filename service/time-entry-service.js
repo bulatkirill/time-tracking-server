@@ -1,5 +1,4 @@
-const timeEntryRepository = require('../db/time-entry-repository');
-const logger = require('../service/logger-service');
+import * as timeEntryRepository from '../db/time-entry-repository';
 
 const parseUrl = (url) => {
     // algorithm took from https://tools.ietf.org/html/rfc3986#appendix-B
@@ -14,14 +13,15 @@ const timeEntryService = {
         timeEntry.host = host;
         return await timeEntryRepository.addTimeEntry(timeEntry);
     },
-    update: async (timeEntry, id) => {
+    partialUpdate: async (timeEntry, id) => {
         if (timeEntry === null || id === null) {
             throw new Error(`Time Entry = ${JSON.stringify(timeEntry)} doesn't have id, cannot be updated.`);
         }
-        // TODO this is not working with sqlite, because it is *probably* not implemented by squelize
-        let [cntUpdated, updatedRows] = await timeEntryRepository.updateTimeEntry(timeEntry, id);
-        logger.log(`Number of update time entries for id = ${id} = ${cntUpdated}`);
-        return updatedRows[0];
+        let timeEntryDb = await timeEntryRepository.getTimeEntryById(id);
+        Object.keys(timeEntry).forEach(key => {
+            timeEntryDb[key] = timeEntry[key];
+        });
+        return await timeEntryDb.save();
     },
     getAll: async () => {
         return await timeEntryRepository.getTimeEntries();
