@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
                 unique: false
             },
             fullUrl: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(512),
                 unique: false
             },
             host: {

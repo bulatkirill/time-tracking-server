@@ -7,7 +7,14 @@ const log = require('./middleware/log/LoggingMiddleware');
 const db = require('./db');
 const errorHandlerMiddleware = require('./middleware/error-handler/error-handler-middleware');
 const logger = require('./service/logger-service');
+const cors = require('cors');
 const app = express();
+
+// configuring cors for remote server
+app.use(cors({
+    // TODO, don't forget to configure correct origin  for FE application
+    origin: "http://localhost:4200"
+}));
 
 // specifying static content of the application
 app.use(express.static('public'));

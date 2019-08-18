@@ -34,4 +34,10 @@ router.post('/:clientId/timeEntry', expressService.asyncWrapper(async (req, res)
     httpService.sendHttpOk(res, 'timeEntry', timeEntryAdded);
 }));
 
+router.get('/:clientId/timeEntry', expressService.asyncWrapper(async (req, res) => {
+    const clientId = req.params.clientId;
+    const client = await clientService.getById(clientId);
+    httpService.sendHttpOk(res, 'timeEntries', client.timeEntries);
+}));
+
 export default router;

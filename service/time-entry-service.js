@@ -7,11 +7,19 @@ const parseUrl = (url) => {
 };
 
 const timeEntryService = {
-    add: async (timeEntry) => {
-        const fullUrl = timeEntry.fullUrl;
-        const host = parseUrl(fullUrl)[4];
-        timeEntry.host = host;
-        return await timeEntryRepository.addTimeEntry(timeEntry);
+    add: async (timeEntries) => {
+        let timeEntriesAdded = [];
+        // handle the bulk create
+        if (timeEntries.constructor !== Array) {
+            timeEntries = [timeEntries];
+        }
+        for (const timeEntry of timeEntries) {
+            const fullUrl = timeEntry.fullUrl;
+            const host = parseUrl(fullUrl)[4];
+            timeEntry.host = host;
+            timeEntriesAdded.push(await timeEntryRepository.addTimeEntry(timeEntry));
+        }
+        return timeEntriesAdded;
     },
     partialUpdate: async (timeEntry, id) => {
         if (timeEntry === null || id === null) {

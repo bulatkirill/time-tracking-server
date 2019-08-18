@@ -17,8 +17,8 @@ router.get('/', expressService.asyncWrapper(async (req, res) => {
 }));
 
 router.post('/', expressService.asyncWrapper(async (req, res) => {
-    const timeEntryAdded = await timeEntryService.add(req.body);
-    httpService.sendHttpOk(res, 'timeEntry', timeEntryAdded);
+    const timeEntriesAdded = await timeEntryService.add(req.body);
+    httpService.sendHttpOk(res, 'timeEntries', timeEntriesAdded);
 }));
 
 router.patch('/:id', expressService.asyncWrapper(async (req, res) => {

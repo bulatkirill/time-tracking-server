@@ -1,7 +1,6 @@
 export const sendHttpOk = (res, resultLabel, result) => {
-    const response = {
-        success: true
-    };
-    response[resultLabel] = result;
-    res.status(200).send(response);
+    //TODO, think about correct way of writing the result
+    // const response = {};
+    // response[resultLabel] = result;
+    res.status(200).send(result);
 };
