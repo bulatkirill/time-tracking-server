@@ -38,23 +38,23 @@ const PORT = 5000;
 
 // loading/creating database schema defined in db module
 db.sequelize.sync({
-    force: true //drop table if exists before the start
+    // force: true //drop table if exists before the start
 }).then(() => {
     // populate author table with dummy data
-    db.TimeEntry.bulkCreate(
-        times(10, () => ({
-            tabId: 1,
-            host: faker.name.firstName(0)
-        }))
-    );
-    db.Client.bulkCreate(
-        times(10, () => ({
-            login: faker.internet.email(),
-            email: faker.internet.email(),
-            name: faker.name.findName(0),
-            password: 'password'
-        }))
-    );
+    // db.TimeEntry.bulkCreate(
+    //     times(10, () => ({
+    //         tabId: 1,
+    //         host: faker.name.firstName(0)
+    //     }))
+    // );
+    // db.Client.bulkCreate(
+    //     times(10, () => ({
+    //         login: faker.internet.email(),
+    //         email: faker.internet.email(),
+    //         name: faker.name.findName(0),
+    //         password: 'password'
+    //     }))
+    // );
     app.listen(PORT, () =>
         logger.log(`App listening on port ${PORT}!`));
 
